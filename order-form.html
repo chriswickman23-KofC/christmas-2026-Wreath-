@@ -23,6 +23,17 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .kofc-logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        
         h1 {
             text-align: center;
             color: #1a472a;
@@ -177,6 +188,12 @@
             box-shadow: 0 0 5px rgba(196, 30, 58, 0.3);
         }
         
+        input[type="date"]:disabled {
+            background-color: #f0f0f0;
+            color: #333;
+            cursor: not-allowed;
+        }
+        
         .button-group {
             display: flex;
             gap: 10px;
@@ -255,9 +272,12 @@
 </head>
 <body>
     <div class="container">
-        <div class="wreath-emoji">🎄</div>
-        <h1>Christmas Wreath Order Form</h1>
-        <p style="text-align: center; color: #666;">Order your beautiful 24" handcrafted wreaths today!</p>
+        <div class="header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Knights_of_Columbus_logo.svg/200px-Knights_of_Columbus_logo.svg.png" alt="Knights of Columbus" class="kofc-logo">
+            <div class="wreath-emoji">🎄</div>
+            <h1>Christmas Wreath Order Form</h1>
+            <p style="text-align: center; color: #666;">Order your beautiful 24" handcrafted wreaths today!</p>
+        </div>
         
         <form id="orderForm">
             <!-- Wreath Selection -->
@@ -345,11 +365,6 @@
                     <label for="phone">Phone Number:</label>
                     <input type="tel" id="phone" name="phone" required>
                 </div>
-                
-                <div class="form-group">
-                    <label for="address">Address:</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
             </div>
             
             <!-- Delivery Information -->
@@ -357,8 +372,8 @@
                 <div class="section-title">Delivery Information</div>
                 
                 <div class="form-group">
-                    <label for="deliveryDate">Desired Delivery Date:</label>
-                    <input type="date" id="deliveryDate" name="deliveryDate" required>
+                    <label for="deliveryDate">Delivery Date:</label>
+                    <input type="date" id="deliveryDate" name="deliveryDate" disabled>
                 </div>
                 
                 <div class="form-group">
@@ -410,6 +425,12 @@
             }
         }
         
+        // Set delivery date to December 5th
+        function setDeliveryDate() {
+            const year = new Date().getFullYear();
+            document.getElementById('deliveryDate').value = year + '-12-05';
+        }
+        
         // Update total when wreath selection changes
         document.querySelectorAll('input[name="wreath"]').forEach(radio => {
             radio.addEventListener('change', updateTotal);
@@ -437,7 +458,6 @@
                 name: formData.get('name'),
                 email: formData.get('email'),
                 phone: formData.get('phone'),
-                address: formData.get('address'),
                 deliveryDate: formData.get('deliveryDate'),
                 specialInstructions: formData.get('special') || 'None',
                 total: document.getElementById('total').textContent
@@ -452,6 +472,7 @@
                 messageDiv.className = 'message success';
                 messageDiv.textContent = '✓ Order submitted successfully! We will contact you soon.';
                 document.getElementById('orderForm').reset();
+                setDeliveryDate();
                 updateTotal();
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Place Order';
@@ -468,7 +489,8 @@
             });
         });
         
-        // Initialize total on page load
+        // Initialize
+        setDeliveryDate();
         updateTotal();
     </script>
 </body>

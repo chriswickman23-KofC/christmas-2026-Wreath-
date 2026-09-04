@@ -69,7 +69,35 @@
             cursor: pointer;
         }
         
+        .payment-option {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-option:hover {
+            border-color: #c41e3a;
+            background: #fff5f5;
+        }
+        
+        .payment-option input[type="radio"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
         .wreath-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .payment-label {
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -79,7 +107,17 @@
             margin-left: 30px;
         }
         
+        .payment-details {
+            margin-left: 30px;
+        }
+        
         .wreath-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #1a472a;
+        }
+        
+        .payment-name {
             font-weight: bold;
             font-size: 1.1em;
             color: #1a472a;
@@ -257,6 +295,38 @@
                 </div>
             </div>
             
+            <!-- Payment Method -->
+            <div class="form-section">
+                <div class="section-title">Select Payment Method</div>
+                
+                <div class="payment-option">
+                    <label class="payment-label">
+                        <input type="radio" name="payment" value="Cash" required>
+                        <div class="payment-details">
+                            <div class="payment-name">Cash</div>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="payment-option">
+                    <label class="payment-label">
+                        <input type="radio" name="payment" value="Check" required>
+                        <div class="payment-details">
+                            <div class="payment-name">Check</div>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="payment-option">
+                    <label class="payment-label">
+                        <input type="radio" name="payment" value="Venmo" required>
+                        <div class="payment-details">
+                            <div class="payment-name">Venmo</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
             <!-- Customer Information -->
             <div class="form-section">
                 <div class="section-title">Customer Information</div>
@@ -363,6 +433,7 @@
                 timestamp: new Date().toLocaleString(),
                 wreath: formData.get('wreath'),
                 quantity: formData.get('quantity'),
+                payment: formData.get('payment'),
                 name: formData.get('name'),
                 email: formData.get('email'),
                 phone: formData.get('phone'),
